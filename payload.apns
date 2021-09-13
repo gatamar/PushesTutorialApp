@@ -1,0 +1,6 @@
+{
+  "aps": {
+    "alert": "Hello Olia 🥳"
+  },
+  "Simulator Target Bundle": "test.PushesTutorialApp"
+}
