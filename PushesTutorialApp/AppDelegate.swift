@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import Intents
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -19,6 +20,24 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 application.registerForRemoteNotifications()
             }
         }
+        if #available(iOS 15.0, *) {
+            INFocusStatusCenter.default.requestAuthorization { focusAuthorizationStatus in
+                print("focusAuthorizationStatus = \(focusAuthorizationStatus)")
+                switch focusAuthorizationStatus {
+                case .authorized:
+                    let focusStatus = INFocusStatusCenter.default.focusStatus
+
+                    print("focusStatus = \(focusStatus.isFocused)")
+                    break
+                default:
+                    fatalError("why not authorized?")
+                }
+            }
+
+        } else {
+            // Fallback on earlier versions
+        }
+        
 
         return true
     }
